@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>爱尔检</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="wap-font-scale" content="no">
+    <!-- qq地图插件 提供给定位返回的经纬度查询具体地址使用 -->
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=YOUR_KEY"></script>
+    <script type="text/javascript">
+      // 适屏处理函数
+       function winResize (){
+      // 设置scale值
+       // var scale = 1 / devicePixelRatio;  
+       // document.querySelector('meta[name="viewport"]').setAttribute('content','initial-scale=' + scale + ', maximum-scale=' + scale + ',minimum-scale=' + scale + ', user-scalable=no');
+
+        // 设置htmlfont-size值，即设置rem
+        var hhxhWindowWidth = (document.documentElement.clientWidth < 750) ? document.documentElement.clientWidth : 750;
+        document.documentElement.style.fontSize = (hhxhWindowWidth / 75) * 10 + 'px';
+      }
+      // 初始化适屏
+      winResize();
+
+      // 横屏与竖屏切换视屏
+      window.addEventListener('resize',winResize);
+      // 设置字体大小
+      (function () {
+        if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+          handleFontSize();
+        } 
+        else {
+          if (document.addEventListener) {
+            document.addEventListener("WeixinJSBridgeReady", handleFontSize, false);
+          }
+          else if (document.attachEvent) {
+            document.attachEvent("WeixinJSBridgeReady", handleFontSize);
+            document.attachEvent("onWeixinJSBridgeReady", handleFontSize);
+          }
+        }
+
+        function handleFontSize() {
+          // 设置网页字体为默认大小
+          WeixinJSBridge.invoke('setFontSizeCallback', {
+            'fontSize': 0
+          });
+
+          // 重写设置网页字体大小的事件
+          WeixinJSBridge.on('menu:setfont', function () {
+            WeixinJSBridge.invoke('setFontSizeCallback', {
+              'fontSize': 0
+            });
+          });
+        }
+      })();
+    </script>
+  </head>
+  <body class="mine-fixed-bg">
+    <div id="app" ></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
