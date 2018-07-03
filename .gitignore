@@ -8,7 +8,6 @@
 Debug/
 node_modules/
 bower_components/
-build/
 .svn/
 dist/
 Release/
